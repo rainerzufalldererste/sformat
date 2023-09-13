@@ -866,6 +866,10 @@ namespace jkj::dragonbox {
           divide_by_pow10_info<N>::shift_amount;
       }
 
+#ifdef _MSC_VER
+#pragma warning (push)
+#pragma warning (disable: 4702)
+#endif
       // Compute floor(n / 10^N) for small N.
       // Precondition: n <= n_max
       template <int N, class UInt, UInt n_max>
@@ -891,6 +895,9 @@ namespace jkj::dragonbox {
           return n / divisor;
         }
       }
+#ifdef _MSC_VER
+#pragma warning (pop)
+#endif
       }
     }
 
@@ -3244,7 +3251,7 @@ namespace jkj::dragonbox {
           template <>
           char *to_chars<double, default_float_traits<double>>(std::uint64_t const significand,
             int exponent, char *buffer) noexcept {
-            std::uint32_t first_block, second_block;
+            std::uint32_t first_block, second_block = 0;
             bool have_second_block;
 
             if (significand < 10'0000'0000) {

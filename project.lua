@@ -6,6 +6,7 @@ project(ProjectName)
   language "C++"
   staticruntime "On"
   cppdialect "C++17"
+  flags { "FatalWarnings" }
 
   filter { "system:windows" }
     buildoptions { '/Gm-' }
